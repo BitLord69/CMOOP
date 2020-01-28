@@ -68,29 +68,42 @@ public class CMOOP {
         playfieldSide = getInput("Vänligen mata in spelfältets storlek", playfieldSide);
     }  // getPlayfieldSize
 
-    public void start(Object o) {
+    public void start(boolean useUnscrambledList, boolean createNewList) {
+        List<Coord> runList;
         int numHits = 0;
-        shapes = new ArrayList<>();
+        int checks = 0;
 
-        ShapeFactory sf = new ShapeFactory(playfieldSide);
+        if (createNewList) {
+            shapes = new ArrayList<>();
+            ShapeFactory sf = new ShapeFactory(playfieldSide);
+            for (int i = 0; i < numPoints; i++) shapes.add(sf.createRandomCoord());
+            for (int i = 0; i < numCircles; i++) shapes.add(sf.createRandomCircle());
+            for (int i = 0; i < numRectangles; i++) shapes.add(sf.createRandomRect());
+        } // if createNewList
+        else
+            if (shapes.size() == 0){
+                System.out.println("Du måste köra en omgång innan du kan återanvända objekten!");
+                return;
+            } // else
 
-        for (int i = 0; i < numPoints; i++) shapes.add(sf.createRandomCoord());
-        for (int i = 0; i < numCircles; i++) shapes.add(sf.createRandomCircle());
-        for (int i = 0; i < numRectangles; i++) shapes.add(sf.createRandomRect());
+        if (useUnscrambledList)
+            runList = shapes;
+        else{
+            runList = new ArrayList<>(shapes);
+            Collections.shuffle(runList);
+        } // else
 
-        List<ICollide> shuffled = new ArrayList<>(shapes);
-        Collections.shuffle(shuffled);
-
-        for (int i = 0; i < shuffled.size(); i++) {
-            for (int j = i + 1; j < shuffled.size(); j++) {
-                if (isCollision(shuffled.get(i), shuffled.get(j))){
+        for (int i = 0; i < runList.size(); i++) {
+            for (int j = i + 1; j < runList.size(); j++) {
+                checks++;
+                if (isCollision(runList.get(i), runList.get(j))){
                     numHits++;
-                    System.out.printf("Collision! => %s\tcollided with\t%s%n", shuffled.get(i), shuffled.get(j));
+                    System.out.printf("Collision! => %s\t\tcollided with\t\t%s%n", runList.get(i), runList.get(j));
                 } // if shapes...
             } // for j...
         } // for i...
 
-        System.out.printf("%nAntal kollisioner: %d%n", numHits);
+        System.out.printf("%nAntal kollisioner: %d av %d möjliga%n", numHits, checks);
     } // start
 
     private boolean isCollision(ICollide iCollide1, ICollide iCollide2) {

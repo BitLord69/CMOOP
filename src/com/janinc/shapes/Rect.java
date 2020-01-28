@@ -30,6 +30,6 @@ public class Rect extends Coord {
 
     @Override
     public String toString() {
-        return String.format("Rect:\t\tid =%3d, x =%3.0f, y =%3.0f, side\t=%3.0f", getId(), getX(), getY(), side);
+        return String.format("%-10s: id =%3d, x =%4.0f, y =%4.0f, side =%6.0f", getClass().getSimpleName(), getId(), getX(), getY(), side);
     } // toString
 } // Class Rect

@@ -44,6 +44,6 @@ public class Circle extends Coord {
 
     @Override
     public String toString() {
-        return String.format("Circle:\tid =%3d, x =%3.0f, y =%3.0f, radius =%3.0f", getId(), getX(), getY(), radius);
+        return String.format("%-10s: id =%3d, x =%4.0f, y =%4.0f, radius =%4.0f", getClass().getSimpleName(), getId() , getX(), getY(), radius);
     } // toString
 } // Class Circle

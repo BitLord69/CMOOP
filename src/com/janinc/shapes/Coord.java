@@ -79,6 +79,6 @@ public class Coord implements ICollide {
 
     @Override
     public String toString() {
-        return String.format("Coord:\tid =%3d, x =%3.0f, y =%3.0f\t\t\t", id, x, y);
+        return String.format("%-10s: id =%3d, x =%4.0f, y =%4.0f%14s", getClass().getSimpleName(), id, x, y, " ");
     } // toString
 } // class Coord

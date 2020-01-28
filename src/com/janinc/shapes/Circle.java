@@ -6,12 +6,9 @@ Programmering i Java EMMJUH19, EC-Utbildning
 CopyLeft 2020 - JanInc
 */
 
-import com.janinc.iface.ICircleCollision;
-import com.janinc.iface.ICollide;
-
 import java.awt.*;
 
-public class Circle extends Coord implements ICircleCollision {
+public class Circle extends Coord {
     private float radius = 0;
 
     public Circle(float x, float y, float radius) {
@@ -23,18 +20,6 @@ public class Circle extends Coord implements ICircleCollision {
     public Rectangle getBounds() {
         return new Rectangle((int)(getX() - radius), (int)(getY() - radius), (int)radius * 2, (int)radius * 2);
     } // getBounds
-
-    @Override
-    public boolean isCollisionDetected(ICircleCollision circle) {
-        System.out.println("isCollisionDetected(ICircleCollision circle)!!!");
-        return super.isCollisionDetected(circle);
-    } // isCollisionDetected
-
-//    @Override
-//    public boolean isCollisionDetected(ICollide object) {
-//        System.out.println("isCollisionDetected(ICollide object)!!!");
-//        return super.isCollisionDetected(object);
-//    } // isCollisionDetected
 
     public float getRadius() {
         return radius;

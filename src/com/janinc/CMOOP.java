@@ -6,6 +6,7 @@ Programmering i Java EMMJUH19, EC-Utbildning
 CopyLeft 2020 - JanInc
 */
 
+import com.janinc.iface.ICollide;
 import com.janinc.menu.MainMenu;
 import com.janinc.shapes.Coord;
 import com.janinc.shapes.ShapeFactory;
@@ -34,8 +35,8 @@ public class CMOOP {
         Scanner scan = new Scanner(System.in);
         System.out.print(prompt + " [" + oldVal + "]: ");
 
-        boolean bBadInput = true;
         int tal = 0;
+        boolean bBadInput = true;
 
         do {
             try {
@@ -76,12 +77,12 @@ public class CMOOP {
         for (int i = 0; i < numCircles; i++) shapes.add(sf.createRandomCircle());
         for (int i = 0; i < numRectangles; i++) shapes.add(sf.createRandomRect());
 
-        List<Coord> shuffled = new ArrayList<>(shapes);
+        List<ICollide> shuffled = new ArrayList<>(shapes);
         Collections.shuffle(shuffled);
 
         for (int i = 0; i < shuffled.size(); i++) {
             for (int j = i + 1; j < shuffled.size(); j++) {
-                if (shuffled.get(i).collision(shuffled.get(j))){
+                if (shuffled.get(i).isCollisionDetected(shuffled.get(j))){
                     numHits++;
                     System.out.printf("Collision! => %s\tcollided with\t%s%n", shuffled.get(i), shuffled.get(j));
                 } // if shapes...
@@ -90,7 +91,6 @@ public class CMOOP {
 
         System.out.printf("%nAntal kollisioner: %d%n", numHits);
     } // start
-
 
     public void listShapes(Object o){
         if (shapes.size() == 0)

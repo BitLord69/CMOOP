@@ -14,28 +14,28 @@ public class Coord implements ICollide {
     private static int counter = 0;
 
     private int id;
-    private int x = 0;
-    private int y = 0;
+    private float x;
+    private float y;
 
-    public Coord(int x, int y){
+    public Coord(float x, float y){
         id = ++Coord.counter;
         this.x = x;
         this.y = y;
     } // Coord
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -48,12 +48,12 @@ public class Coord implements ICollide {
         return new Rectangle((int)x, (int)y, 1, 1);
     } // getBounds
 
-    public boolean collision(ICollide object){
+    public boolean isCollisionDetected(ICollide object){
         return getBounds().intersects(object.getBounds());
-    } // collision
+    } // isCollisionDetected
 
     @Override
     public String toString() {
-        return String.format("Coord:\tid =%3d, x =%3d, y =%3d\t\t\t\t", id, x, y);
+        return String.format("Coord:\tid =%3d, x =%3.0f, y =%3.0f\t\t\t", id, x, y);
     } // toString
 } // class Coord

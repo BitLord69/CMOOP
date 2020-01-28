@@ -20,6 +20,14 @@ abstract public class Menu {
         this.statusMessageFunction = statusMessageFunction;
     } // Menu
 
+    public Consumer getStatusMessageFunction() {
+        return statusMessageFunction;
+    } // getStatusMessageFunction
+
+    public void setStatusMessageFunction(Consumer statusMessageFunction) {
+        this.statusMessageFunction = statusMessageFunction;
+    } // setStatusMessageFunction
+
     protected void setMenu(Object o) {
         currentMenu = (ArrayList<MenuChoice>) o;
     } // setMenu
@@ -41,7 +49,7 @@ abstract public class Menu {
         String sChoice;
         Scanner scan = new Scanner(System.in);
 
-        // Se till så att det finns ett menyval och inte en tomrad (blir så efter nextDouble)
+        // Se till så att det finns ett menyval och inte en tomrad
         do
             sChoice = scan.nextLine();
         while (sChoice.length() == 0);

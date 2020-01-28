@@ -11,20 +11,20 @@ import com.janinc.iface.ICollide;
 import java.awt.*;
 
 public class Rect extends Coord {
-    int side = 0;
+    float side = 0;
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(getX() - side / 2, getY() - side / 2, side, side);
+        return new Rectangle((int)(getX() - side / 2), (int)(getY() - side / 2), (int)side, (int)side);
     } // getBounds
 
-    public Rect(int x, int y, int side) {
+    public Rect(float x, float y, float side) {
         super(x, y);
         this.side = side;
     }  // Rect
 
     @Override
     public String toString() {
-        return String.format("Rect:\t\tid =%3d, x =%3d, y =%3d, side\t=%3d", getId(), getX(), getY(), side);
+        return String.format("Rect:\t\tid =%3d, x =%3.0f, y =%3.0f, side\t=%3.0f", getId(), getX(), getY(), side);
     } // toString
 } // Class Rect

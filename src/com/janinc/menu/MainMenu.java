@@ -22,7 +22,7 @@ public class MainMenu extends Menu {
         mainMenu.add(new MenuChoice("Ändra antal cirklar", '2', app::getNumCircles));
         mainMenu.add(new MenuChoice("Ändra antal kvadrater", '3', app::getNumRectangles));
         mainMenu.add(new MenuChoice("Ändra fältets storlek", '4', app::getPlayfieldSize));
-        mainMenu.add(new MenuChoice("Slumpa objekt", '5', app::start));
+        mainMenu.add(new MenuChoice("Slumpa objekt (kör)", '5', app::start));
         mainMenu.add(new MenuChoice("Lista alla objekt", '6', app::listShapes));
         mainMenu.add(new MenuChoice("Avsluta", '0', null));
     } // MainMenu

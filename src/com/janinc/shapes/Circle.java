@@ -5,11 +5,14 @@ Programmerat av Jan-Erik "Janis" Karlsson 2020-01-27
 Programmering i Java EMMJUH19, EC-Utbildning
 CopyLeft 2020 - JanInc
 */
+
 import com.janinc.iface.ICollide;
+
 
 import java.awt.*;
 
 public class Circle extends Coord {
+
     private float radius;
 
     public Circle(float x, float y, float radius) {
@@ -37,6 +40,7 @@ public class Circle extends Coord {
         else
             return super.isCollisionDetected(object);
     } // isCollisionDetected
+
 
     public float getRadius() {
         return radius;

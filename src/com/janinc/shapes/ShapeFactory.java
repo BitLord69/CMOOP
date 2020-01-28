@@ -15,35 +15,39 @@ public class ShapeFactory {
         this.playFieldSize = playFieldSize;
     } // ShapeFactory
 
+    private float getRandomNumber(){
+        return (float)Math.random() * playFieldSize;
+    } // getRandomNumber
+
     public Coord createRandomCoord(){
-        return new Coord((float)Math.random() * playFieldSize, (float)Math.random() * playFieldSize);
+        return new Coord(getRandomNumber(), getRandomNumber());
     } // createRandomCoord
 
     public Rect createRandomRect() {
-        Coord c;
         float side;
+        float x = getRandomNumber();
+        float y = getRandomNumber();
 
         do {
-            c = createRandomCoord();
-            side = (float)(Math.random() * playFieldSize / MAX_SIDE_RADIUS_DIVISOR);
+            side = getRandomNumber() / MAX_SIDE_RADIUS_DIVISOR;
         }
-        while (c.getX() - side / 2 < 0 || c.getX() + side / 2 > playFieldSize ||
-                c.getY() - side / 2 < 0 || c.getY() + side / 2 > playFieldSize);
+        while (x - side / 2 < 0 || x + side / 2 > playFieldSize ||
+                y - side / 2 < 0 || y + side / 2 > playFieldSize);
 
-        return new Rect(c.getX(), c.getY(), side);
+        return new Rect(x, y, side);
     } // createRandomRect
 
     public Circle createRandomCircle() {
-        Coord c;
         float radius;
+        float x = getRandomNumber();
+        float y = getRandomNumber();
 
         do {
-            c = createRandomCoord();
-            radius = (float)(Math.random() * playFieldSize / MAX_SIDE_RADIUS_DIVISOR);
+            radius = getRandomNumber() / MAX_SIDE_RADIUS_DIVISOR;
         }
-        while (c.getX() - radius < 0 || c.getX() + radius > playFieldSize ||
-                c.getY() - radius < 0 || c.getY() + radius > playFieldSize);
+        while (x - radius < 0 || x + radius > playFieldSize ||
+                y - radius < 0 || y + radius > playFieldSize);
 
-        return new Circle(c.getX(), c.getY(), radius);
+        return new Circle(x, y, radius);
     } // createRandomCircle
 } // ShapeFactory

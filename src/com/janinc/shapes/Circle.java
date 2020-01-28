@@ -5,14 +5,12 @@ Programmerat av Jan-Erik "Janis" Karlsson 2020-01-27
 Programmering i Java EMMJUH19, EC-Utbildning
 CopyLeft 2020 - JanInc
 */
-
-import com.janinc.iface.ICircleCollision;
 import com.janinc.iface.ICollide;
 
 import java.awt.*;
 
-public class Circle extends Coord implements ICircleCollision {
-    private float radius = 0;
+public class Circle extends Coord {
+    private float radius;
 
     public Circle(float x, float y, float radius) {
         super(x, y);
@@ -25,16 +23,20 @@ public class Circle extends Coord implements ICircleCollision {
     } // getBounds
 
     @Override
-    public boolean isCollisionDetected(ICircleCollision circle) {
-        System.out.println("isCollisionDetected(ICircleCollision circle)!!!");
-        return super.isCollisionDetected(circle);
+    public boolean isCollisionDetected(ICollide object) {
+        // Inte väldigt snyggt nedan, men vet inte hur jag annars ska lösa det med interfacet och bättre kollisionesdetektering.
+        // Ser fram emot att få en bra genomgång på lektionen :)
+        if (object instanceof Circle)
+            return Coord.circleCircleCollision(this, (Circle)object);
+        else
+        if (object instanceof Rect)
+            return Coord.circleRectCollision(this, (Rect)object);
+        else
+        if (object instanceof Coord)
+            return Coord.circleCoordCollision(this, (Coord)object);
+        else
+            return super.isCollisionDetected(object);
     } // isCollisionDetected
-
-//    @Override
-//    public boolean isCollisionDetected(ICollide object) {
-//        System.out.println("isCollisionDetected(ICollide object)!!!");
-//        return super.isCollisionDetected(object);
-//    } // isCollisionDetected
 
     public float getRadius() {
         return radius;

@@ -8,6 +8,7 @@ CopyLeft 2020 - JanInc
 
 import com.janinc.iface.ICollide;
 import com.janinc.menu.MainMenu;
+import com.janinc.shapes.Circle;
 import com.janinc.shapes.Coord;
 import com.janinc.shapes.ShapeFactory;
 
@@ -82,7 +83,7 @@ public class CMOOP {
 
         for (int i = 0; i < shuffled.size(); i++) {
             for (int j = i + 1; j < shuffled.size(); j++) {
-                if (shuffled.get(i).isCollisionDetected(shuffled.get(j))){
+                if (isCollision(shuffled.get(i), shuffled.get(j))){
                     numHits++;
                     System.out.printf("Collision! => %s\tcollided with\t%s%n", shuffled.get(i), shuffled.get(j));
                 } // if shapes...
@@ -91,6 +92,17 @@ public class CMOOP {
 
         System.out.printf("%nAntal kollisioner: %d%n", numHits);
     } // start
+
+    private boolean isCollision(ICollide iCollide1, ICollide iCollide2) {
+        // Make sure that the circle always is called upon when detecting for collision
+        // This makes the code less messy in the shapes classes, but perhaps not better...
+        if (iCollide2 instanceof Circle) {
+            ICollide iTemp = iCollide1;
+            iCollide1 = iCollide2;
+            iCollide2 = iTemp;
+        } // isCollide2...
+        return iCollide1.isCollisionDetected(iCollide2);
+    } // isCollision
 
     public void listShapes(Object o){
         if (shapes.size() == 0)

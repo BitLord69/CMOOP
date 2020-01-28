@@ -6,7 +6,6 @@ Programmering i Java EMMJUH19, EC-Utbildning
 CopyLeft 2020 - JanInc
 */
 
-import com.janinc.iface.ICircleCollision;
 import com.janinc.iface.ICollide;
 
 import java.awt.Rectangle;
@@ -50,34 +49,8 @@ public class Coord implements ICollide {
     } // getBounds
 
     public boolean isCollisionDetected(ICollide object){
-            // Inte väldigt snyggt nedan, men vet inte hur jag annars ska lösa det med interfacet och bättre kollisionesdetektering.
-            // Ser fram emot att få en bra genomgång på lektionen :)
-
-//            if (this instanceof Circle || object instanceof Circle) {
-//
-//            }
-//
-//            if (object instanceof Coord) {
-//                System.out.println("Circle colliding with '.'");
-//                return Coord.circleCoordCollision((Circle)this, (Coord)object);
-//            } // if object
-//            else
-//            if (object instanceof Circle){
-//                System.out.println("Circles colliding...");
-//                return Coord.circleCircleCollision((Circle)this, (Circle)object);
-//            } // if object...
-//            else
-//            if (object instanceof Rect){
-//                return false;
-//            } else
-        System.out.println("Coord::isCollisionDetected(ICollide object)!!!");
         return getBounds().intersects(object.getBounds());
     } // isCollisionDetected
-
-    @Override
-    public String toString() {
-        return String.format("Coord:\tid =%3d, x =%3.0f, y =%3.0f\t\t\t", id, x, y);
-    } // toString
 
     protected static boolean circleCoordCollision(Circle circle, Coord coord) {
         return (Math.abs(circle.getX() - coord.getX()) <= circle.getRadius() && Math.abs(circle.getY() - coord.getY()) <= circle.getRadius());
@@ -88,6 +61,24 @@ public class Coord implements ICollide {
     } // circleCircleCollision
 
     protected static boolean circleRectCollision(Circle circle, Rect rect) {
-        return false; //Math.pow(c1.getX() - c2.getX(), 2) + Math.pow(c1.getY() - c2.getY(), 2) <= Math.pow(c1.getRadius() + c2.getRadius(), 2);
+        float closestX = Coord.clamp(circle.getX(), rect.getX(), rect.getX() + rect.getSide() / 2);
+        float closestY = Coord.clamp(circle.getY(), rect.getY() - rect.getY() - rect.getSide() / 2, rect.getY());
+
+        return Math.pow(circle.getX() - closestX, 2) + Math.pow(circle.getY() - closestY, 2) < Math.pow(circle.getRadius(), 2);
     } // circleRectCollision
+
+    public static float clamp(float value, float min, float max) {
+        float x = value;
+        if (x < min) {
+            x = min;
+        } else if (x > max) {
+            x = max;
+        }
+        return x;
+    } // clamp
+
+    @Override
+    public String toString() {
+        return String.format("Coord:\tid =%3d, x =%3.0f, y =%3.0f\t\t\t", id, x, y);
+    } // toString
 } // class Coord

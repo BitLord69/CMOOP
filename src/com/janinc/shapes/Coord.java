@@ -52,21 +52,6 @@ public class Coord implements ICollide {
         return getBounds().intersects(object.getBounds());
     } // isCollisionDetected
 
-    protected static boolean circleCoordCollision(Circle circle, Coord coord) {
-        return (Math.abs(circle.getX() - coord.getX()) <= circle.getRadius() && Math.abs(circle.getY() - coord.getY()) <= circle.getRadius());
-    } // circleCoordCollision
-
-    protected static boolean circleCircleCollision(Circle c1, Circle c2) {
-        return Math.pow(c1.getX() - c2.getX(), 2) + Math.pow(c1.getY() - c2.getY(), 2) <= Math.pow(c1.getRadius() + c2.getRadius(), 2);
-    } // circleCircleCollision
-
-    protected static boolean circleRectCollision(Circle circle, Rect rect) {
-        float closestX = Coord.clamp(circle.getX(), rect.getX(), rect.getX() + rect.getSide() / 2);
-        float closestY = Coord.clamp(circle.getY(), rect.getY() - rect.getY() - rect.getSide() / 2, rect.getY());
-
-        return Math.pow(circle.getX() - closestX, 2) + Math.pow(circle.getY() - closestY, 2) < Math.pow(circle.getRadius(), 2);
-    } // circleRectCollision
-
     public static float clamp(float value, float min, float max) {
         float x = value;
         if (x < min) {
